@@ -15,7 +15,9 @@
   "author": "Антропов Евгений - (https://t.me/squaredbusinessman)",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mongoose": "^6.6.1",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "^8.23.1",
