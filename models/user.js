@@ -22,6 +22,6 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Поле пароль должно быть заполнено!'],
     select: false,
   },
-})
+});
 
 module.exports = mongoose.model('user', userSchema);
