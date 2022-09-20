@@ -1,0 +1,15 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Диплом. Веб-Разработчик. Я.Практикум. Бэкенд - часть.",
+  "main": "app.js",
+  "scripts": {
+    "lint": "npx eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//squaredbusinessman/movies-explorer-api.git"
+  },
+  "author": "Антропов Евгений - (https://t.me/squaredbusinessman)",
+  "license": "ISC"
+}
