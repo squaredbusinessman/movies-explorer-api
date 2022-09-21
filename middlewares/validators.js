@@ -29,20 +29,20 @@ const createMovieValidate = celebrate({
       .required,
     nameEN: Joi.string()
       .required,
-  })
+  }),
 });
 
 const commonMovieValidate = celebrate({
   body: Joi.object().keys({
     movieId: Joi.string().hex().length(24),
-  })
+  }),
 });
 
 const authenticationValidate = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-  })
+  }),
 });
 
 const authorizationValidate = celebrate({
@@ -50,7 +50,7 @@ const authorizationValidate = celebrate({
     name: Joi.string().min(2).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-  })
+  }),
 });
 
 const userPatchValidate = celebrate({
@@ -65,4 +65,4 @@ module.exports = {
   authenticationValidate,
   authorizationValidate,
   userPatchValidate,
-}
+};
