@@ -4,6 +4,7 @@ const User = require('../models/user');
 const errorsCodes = require('../errors/errorCodes');
 const ExistingDataError = require('../errors/ExistingDataError');
 const ValidationError = require('../errors/ValidationError');
+const UnAuthorizedError = require('../errors/UnAuthorizedError');
 
 const createUser = (req, res, next) => {
   const {
@@ -26,6 +27,30 @@ const createUser = (req, res, next) => {
       }
     })
     .catch(next);
+};
+
+const loginUser = (req, res, next) => {
+  const { email, password } = req.body;
+  User.findOne({ email }).select('+password').then((user) => {
+    if (!user) {
+      throw new UnAuthorizedError('Введены неправильные почта или пароль!');
+    }
+
+    return bcrypt.compare(password, user.password)
+      .then((matched) => {
+        if (!matched) {
+          throw new UnAuthorizedError('Введены неправильные почта или пароль!');
+        }
+
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === 'production' ? JWT_SECRET : 'my-diploma-key',
+          { expires: '7d' },
+          );
+
+        res.send({ token });
+      })
+  }).catch(next);
 };
 
 const getUserData = (req, res, next) => {
