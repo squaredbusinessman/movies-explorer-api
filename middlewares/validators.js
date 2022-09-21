@@ -2,7 +2,7 @@ const { celebrate, Joi } = require('celebrate');
 
 const avatarUrlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
 
-const postMovieValidate = celebrate({
+const createMovieValidate = celebrate({
   body: Joi.object().keys({
     country: Joi.string()
       .required(),
@@ -60,7 +60,7 @@ const userPatchValidate = celebrate({
 });
 
 module.exports = {
-  postMovieValidate,
+  createMovieValidate,
   commonMovieValidate,
   authenticationValidate,
   authorizationValidate,
