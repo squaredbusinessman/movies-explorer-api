@@ -81,4 +81,5 @@ module.exports = {
   createUser,
   getUserData,
   patchUserData,
+  loginUser,
 };
