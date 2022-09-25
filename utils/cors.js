@@ -4,8 +4,10 @@ const corsOptions = {
     'https://localhost:3000',
     'http://localhost:3001',
     'https://localhost:3001',
-    'https://frontend.antropov.nomoredomains.sbs',
-    'https://api.antropov.nomoredomains.sbs',
+    'http://frontend.antropov.nomorepartiesxyz.ru',
+    'https://frontend.antropov.nomorepartiesxyz.ru',
+    'http://api.antropov.nomorepartiesxyz.ru',
+    'https://api.antropov.nomorepartiesxyz.ru',
 
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
