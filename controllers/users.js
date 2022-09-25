@@ -6,6 +6,8 @@ const ExistingDataError = require('../errors/ExistingDataError');
 const ValidationError = require('../errors/ValidationError');
 const UnAuthorizedError = require('../errors/UnAuthorizedError');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const createUser = (req, res, next) => {
   const {
     name, email, password,
@@ -31,26 +33,26 @@ const createUser = (req, res, next) => {
 
 const loginUser = (req, res, next) => {
   const { email, password } = req.body;
-  User.findOne({ email }).select('+password').then((user) => {
-    if (!user) {
-      throw new UnAuthorizedError('Введены неправильные почта или пароль!');
-    }
+  User.findOne({ email }).select('+password')
+    .then((user) => {
+      if (!user) {
+        throw new UnAuthorizedError('Введены неправильные почта или пароль!');
+      }
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            throw new UnAuthorizedError('Введены неправильные почта или пароль!');
+          }
 
-    return bcrypt.compare(password, user.password)
-      .then((matched) => {
-        if (!matched) {
-          throw new UnAuthorizedError('Введены неправильные почта или пароль!');
-        }
-
-        const token = jwt.sign(
-          { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'my-diploma-key',
-          { expires: '7d' },
+          const token = jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : 'my-diploma-key',
+            { expiresIn: '7d' },
           );
 
-        res.send({ token });
-      })
-  }).catch(next);
+          res.send({ token });
+        });
+    }).catch(next);
 };
 
 const getUserData = (req, res, next) => {
