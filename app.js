@@ -8,6 +8,7 @@ const cors = require('cors');
 const errorHandler = require('./middlewares/error');
 const routes = require('./routes/index');
 const { requestLogDealer, errorLogDealer } = require('./middlewares/logger');
+const limiter = require('./utils/limiter');
 const corsOptions = require('./utils/cors');
 
 const {
@@ -29,6 +30,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogDealer);
+
+app.use(limiter);
 
 app.use(routes);
 
