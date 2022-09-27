@@ -8,8 +8,8 @@ const cors = require('cors');
 const errorHandler = require('./middlewares/error');
 const routes = require('./routes/index');
 const { requestLogDealer, errorLogDealer } = require('./middlewares/logger');
-const limiter = require('./utils/limiter');
 const corsOptions = require('./utils/cors');
+const limiter = require('./utils/limiter');
 
 const {
   PORT = 3000,

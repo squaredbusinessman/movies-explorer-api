@@ -9,7 +9,7 @@ const UnAuthorizedError = require('../errors/UnAuthorizedError');
 const {
   NODE_ENV = 'develop',
   JWT_SECRET,
-  SECRET_KEY
+  SECRET_KEY,
 } = process.env;
 
 const createUser = (req, res, next) => {

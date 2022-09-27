@@ -1,7 +1,6 @@
 const Movie = require('../models/movie');
 const ValidationError = require('../errors/ValidationError');
 const NotFoundError = require('../errors/NotFoundError');
-const AccessError = require('../errors/AccessError');
 
 const getMovies = (req, res, next) => {
   Movie.find({}).sort({ createdAt: -1 })
@@ -54,7 +53,7 @@ const deleteMovie = (req, res, next) => {
       throw new NotFoundError('Карточка с данным id не найдена!');
     })
     .then((movie) => {
-        movie.remove().then(() => res.send({ message: 'Карточка фильма успешно удалена!' }));
+      movie.remove().then(() => res.send({ message: 'Карточка фильма успешно удалена!' }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
