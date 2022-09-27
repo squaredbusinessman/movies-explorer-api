@@ -39,7 +39,6 @@ const movieSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    default: [],
   },
   movieId: {
     type: Number,

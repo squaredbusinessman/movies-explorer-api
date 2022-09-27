@@ -7,7 +7,8 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    return next(new UnAuthorizedError('Вы должны быть авторизованы'));
+    next(new UnAuthorizedError('Вы должны быть авторизованы'));
+    return;
   }
 
   const token = authorization.replace('Bearer ', '');
@@ -21,12 +22,11 @@ module.exports = (req, res, next) => {
     );
   } catch (err) {
     // отправим ошибку, если не получилось
-    return next(new UnAuthorizedError('Вы должны быть авторизованы'));
+    next(new UnAuthorizedError('Вы должны быть авторизованы'));
+    return;
   }
 
   req.user = payload; // записываем пейлоуд в объект запроса
 
   next(); // пропускаем запрос дальше
-
-  return undefined;
 };

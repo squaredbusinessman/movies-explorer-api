@@ -19,7 +19,7 @@ const createMovieValidate = celebrate({
         if (validator.isURL(value)) {
           return value;
         }
-        return  helpers.message('Укажите ссылку на постер в правильном формате, пожалуйста!');
+        return helpers.message('Укажите ссылку на постер в правильном формате, пожалуйста!');
       }),
     trailerLink: Joi.string()
       .required()
@@ -27,7 +27,7 @@ const createMovieValidate = celebrate({
         if (validator.isURL(value)) {
           return value;
         }
-        return  helpers.message('Укажите ссылку на трейлер в правильном формате, пожалуйста!');
+        return helpers.message('Укажите ссылку на трейлер в правильном формате, пожалуйста!');
       }),
     thumbnail: Joi.string()
       .required()
@@ -35,7 +35,7 @@ const createMovieValidate = celebrate({
         if (validator.isURL(value)) {
           return value;
         }
-        return  helpers.message('Укажите ссылку на постер-аватар в правильном формате, пожалуйста!');
+        return helpers.message('Укажите ссылку на постер-аватар в правильном формате, пожалуйста!');
       }),
     movieId: Joi.number()
       .required(),
@@ -48,7 +48,7 @@ const createMovieValidate = celebrate({
 
 const commonMovieValidate = celebrate({
   body: Joi.object().keys({
-    movieId: Joi.string().hex().length(24),
+    _id: Joi.string().hex().length(24).required(),
   }),
 });
 

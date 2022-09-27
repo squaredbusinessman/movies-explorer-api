@@ -1,9 +1,10 @@
 const Movie = require('../models/movie');
 const ValidationError = require('../errors/ValidationError');
 const NotFoundError = require('../errors/NotFoundError');
+const AccessError = require('../errors/AccessError');
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({}).sort({ createdAt: -1 })
     .then((movies) => res.send(movies))
     .catch(next);
 };
@@ -48,21 +49,18 @@ const createMovie = (req, res, next) => {
 };
 
 const deleteMovie = (req, res, next) => {
-  Movie.findByIdAndUpdate(
-    req.params.movieId,
-    { $pull: { owner: req.user._id } },
-    { new: true },
-  ).then((movie) => {
-    if (!movie) {
-      throw new NotFoundError('Карточка фильма с данным movieId не найдена!');
-    }
-    res.send(movie);
-  })
-    .catch((error) => {
-      if (error.name === 'CastError') {
-        next(new ValidationError('Переданы некорректные данные при удалении фильма из избранного!'));
+  Movie.findById(req.params._id)
+    .orFail(() => {
+      throw new NotFoundError('Карточка с данным id не найдена!');
+    })
+    .then((movie) => {
+        movie.remove().then(() => res.send({ message: 'Карточка фильма успешно удалена!' }));
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new ValidationError('Переданы некорректные данные для удаления карточки'));
       } else {
-        next(error);
+        next(err);
       }
     });
 };
