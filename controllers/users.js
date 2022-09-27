@@ -6,7 +6,11 @@ const ExistingDataError = require('../errors/ExistingDataError');
 const ValidationError = require('../errors/ValidationError');
 const UnAuthorizedError = require('../errors/UnAuthorizedError');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const {
+  NODE_ENV = 'develop',
+  JWT_SECRET,
+  SECRET_KEY
+} = process.env;
 
 const createUser = (req, res, next) => {
   const {
@@ -46,7 +50,7 @@ const loginUser = (req, res, next) => {
 
           const token = jwt.sign(
             { _id: user._id },
-            NODE_ENV === 'production' ? JWT_SECRET : 'my-diploma-key',
+            NODE_ENV === 'production' ? JWT_SECRET : SECRET_KEY,
             { expiresIn: '7d' },
           );
 

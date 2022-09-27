@@ -1,7 +1,11 @@
 const jwt = require('jsonwebtoken');
 const UnAuthorizedError = require('../errors/UnAuthorizedError');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const {
+  NODE_ENV = 'develop',
+  JWT_SECRET,
+  SECRET_KEY,
+} = process.env;
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
@@ -18,7 +22,7 @@ module.exports = (req, res, next) => {
     // попытаемся верифицировать токен
     payload = jwt.verify(
       token,
-      NODE_ENV === 'production' ? JWT_SECRET : 'my-diploma-key',
+      NODE_ENV === 'production' ? JWT_SECRET : SECRET_KEY,
     );
   } catch (err) {
     // отправим ошибку, если не получилось

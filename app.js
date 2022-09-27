@@ -11,14 +11,16 @@ const corsOptions = require('./utils/cors');
 
 const {
   PORT = 3000,
-
+  NODE_ENV = 'develop',
+  MONGO_DB_PROD,
+  MONGO_DB_DEV,
 } = process.env;
 
 const app = express();
 
 app.use('*', cors(corsOptions));
 
-mongoose.connect('mongodb://localhost:27017/moviesdb');
+mongoose.connect(NODE_ENV === 'production' ? MONGO_DB_PROD : MONGO_DB_DEV);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
