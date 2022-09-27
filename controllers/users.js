@@ -27,7 +27,7 @@ const createUser = (req, res, next) => {
       if (error.name === 'ValidationError') {
         next(new ValidationError('Введены некорректные данные при создании пользователя'));
       } else if (error.code === errorsCodes.DuplicateErrorCode) {
-        next(new ExistingDataError('пользователь с данным email уже зарегистрирован'));
+        next(new ExistingDataError('Пользователь с данным email уже зарегистрирован'));
       } else {
         next(error);
       }
@@ -78,6 +78,8 @@ const patchUserData = (req, res, next) => {
     .catch((error) => {
       if (error.name === 'ValidationError') {
         next(new ValidationError('Введены некорректные данные для обновления информации о пользователе'));
+      } else if (error.code === errorsCodes.DuplicateErrorCode) {
+        next(new ExistingDataError('Пользователь с данным email уже существует, используйте другой email'));
       } else {
         next(error);
       }
