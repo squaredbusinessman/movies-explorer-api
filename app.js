@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const helmet = require('helmet');
 const cors = require('cors');
 const errorHandler = require('./middlewares/error');
 const routes = require('./routes/index');
@@ -17,6 +18,8 @@ const {
 } = process.env;
 
 const app = express();
+
+app.use(helmet());
 
 app.use('*', cors(corsOptions));
 
