@@ -15,8 +15,6 @@
   "plugins": [
   ],
   "rules": {
-    "consistent-return": "off",
     "no-underscore-dangle": ["error", { "allow": ["_id"]}],
-    "linebreak-style": 0
   }
 }
