@@ -15,7 +15,7 @@ const app = express();
 
 app.use('*', cors(corsOptions));
 
-mongoose.connect('mongodb://localhost:27017/beatfilmsdb');
+mongoose.connect('mongodb://localhost:27017/moviesdb');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

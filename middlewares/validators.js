@@ -1,34 +1,48 @@
 const { celebrate, Joi } = require('celebrate');
-
-const avatarUrlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
+const validator = require('validator');
 
 const createMovieValidate = celebrate({
   body: Joi.object().keys({
     country: Joi.string()
       .required(),
     director: Joi.string()
-      .required,
+      .required(),
     duration: Joi.number()
-      .required,
+      .required(),
     year: Joi.string()
-      .required,
+      .required(),
     description: Joi.string()
-      .required,
+      .required(),
     image: Joi.string()
       .required()
-      .regex(avatarUrlRegex),
-    trailer: Joi.string()
+      .custom((value, helpers) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return  helpers.message('Укажите ссылку на постер в правильном формате, пожалуйста!');
+      }),
+    trailerLink: Joi.string()
       .required()
-      .regex(avatarUrlRegex),
+      .custom((value, helpers) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return  helpers.message('Укажите ссылку на трейлер в правильном формате, пожалуйста!');
+      }),
     thumbnail: Joi.string()
       .required()
-      .regex(avatarUrlRegex),
-    movieId: Joi.string()
-      .required,
+      .custom((value, helpers) => {
+        if (validator.isURL(value)) {
+          return value;
+        }
+        return  helpers.message('Укажите ссылку на постер-аватар в правильном формате, пожалуйста!');
+      }),
+    movieId: Joi.number()
+      .required(),
     nameRU: Joi.string()
-      .required,
+      .required(),
     nameEN: Joi.string()
-      .required,
+      .required(),
   }),
 });
 
@@ -55,7 +69,8 @@ const authorizationValidate = celebrate({
 
 const userPatchValidate = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    email: Joi.string().email().required(),
+    name: Joi.string().min(2).max(30).required(),
   }),
 });
 
