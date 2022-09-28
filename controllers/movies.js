@@ -53,7 +53,9 @@ const deleteMovie = (req, res, next) => {
       throw new NotFoundError('Карточка с данным id не найдена!');
     })
     .then((movie) => {
-      movie.remove().then(() => res.send({ message: 'Карточка фильма успешно удалена!' }));
+      movie.remove()
+        .then(() => res.send({ message: 'Карточка фильма успешно удалена!' }))
+        .catch((err) => next(err));
     })
     .catch((err) => {
       if (err.name === 'CastError') {

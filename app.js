@@ -9,13 +9,13 @@ const errorHandler = require('./middlewares/error');
 const routes = require('./routes/index');
 const { requestLogDealer, errorLogDealer } = require('./middlewares/logger');
 const corsOptions = require('./utils/cors');
+const { MONGO_DB_DEV } = require('./utils/config');
 const limiter = require('./utils/limiter');
 
 const {
   PORT = 3000,
   NODE_ENV = 'develop',
   MONGO_DB_PROD,
-  MONGO_DB_DEV,
 } = process.env;
 
 const app = express();

@@ -5,11 +5,11 @@ const errorsCodes = require('../errors/errorCodes');
 const ExistingDataError = require('../errors/ExistingDataError');
 const ValidationError = require('../errors/ValidationError');
 const UnAuthorizedError = require('../errors/UnAuthorizedError');
+const { SECRET_KEY } = require('../utils/config');
 
 const {
   NODE_ENV = 'develop',
   JWT_SECRET,
-  SECRET_KEY,
 } = process.env;
 
 const createUser = (req, res, next) => {
