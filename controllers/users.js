@@ -19,9 +19,9 @@ const createUser = (req, res, next) => {
   bcrypt.hash(password, 10)
     .then((hash) => User.create({ name, email, password: hash }))
     .then((user) => {
-      const userWithoutPass = user.toObject();
-      delete userWithoutPass.password;
-      res.status(201).send(userWithoutPass);
+/*      const userWithoutPass = user.toObject();
+      delete userWithoutPass.password;*/
+      res.status(201).send(user);
     })
     .catch((error) => {
       if (error.name === 'ValidationError') {
